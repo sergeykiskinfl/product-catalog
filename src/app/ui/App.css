@@ -4,7 +4,7 @@
 }
 
 body {
-  --navbar-shift: 4rem;
+  --navbar-shift: 5rem;
   --footer-shift: 5rem;
   height: 100%;
 }
