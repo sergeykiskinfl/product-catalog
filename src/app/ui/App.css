@@ -1,0 +1,16 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+}
+
+body {
+  --navbar-shift: 4rem;
+  --footer-shift: 5rem;
+  height: 100%;
+}
+
+.page-container {
+  position: relative;
+  margin-top: var(--navbar-shift);
+  min-height: calc(100vh - var(--navbar-shift));
+}
