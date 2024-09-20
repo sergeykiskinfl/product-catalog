@@ -13,4 +13,6 @@ body {
   position: relative;
   margin-top: var(--navbar-shift);
   min-height: calc(100vh - var(--navbar-shift));
+  padding: 10px;
+  padding-top: 30px;
 }

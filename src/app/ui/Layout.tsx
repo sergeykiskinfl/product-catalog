@@ -9,7 +9,6 @@ export function Layout(): JSX.Element {
       <Box as="main" className={"page-container"}>
         <Outlet />
       </Box>
-      ;
     </>
   );
 }
