@@ -1,15 +1,4 @@
-import {
-  Flex,
-  Box,
-  Spacer,
-  Heading,
-  Link,
-  IconButton,
-  Text,
-  HStack,
-  VStack,
-  Icon,
-} from "@chakra-ui/react";
+import { Flex, Spacer, Link, Text, VStack, Icon } from "@chakra-ui/react";
 import { Link as ReachLink } from "react-router-dom";
 
 import { AiOutlineUnorderedList } from "react-icons/ai";
