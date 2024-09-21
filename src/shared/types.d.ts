@@ -32,8 +32,10 @@ export type Product = ProductShort & {
 
 export type ZustandState = {
   categories: Category[];
+  currentProduct: Product | null;
 };
 
 export type ZustandActions = {
   setCategories: (categories: ZustandState["categories"]) => void;
+  setCurrentProduct: (currentProduct: Product) => void;
 };

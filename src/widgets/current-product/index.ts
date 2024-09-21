@@ -1,0 +1,1 @@
+export { CurrentProduct } from "./ui/CurrentProduct";

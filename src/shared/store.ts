@@ -8,8 +8,11 @@ const useStore = create<ZustandState & ZustandActions>()(
   devtools(
     immer((set) => ({
       categories: [],
+      currentProduct: null,
       setCategories: (categories) =>
         set((state) => void (state.categories = categories)),
+      setCurrentProduct: (currentProduct) =>
+        set((state) => void (state.currentProduct = currentProduct)),
     }))
   )
 );
