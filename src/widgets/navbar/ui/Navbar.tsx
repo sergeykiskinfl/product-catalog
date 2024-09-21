@@ -8,7 +8,7 @@ import styles from "./styles.module.css";
 
 export function Navbar(): JSX.Element {
   return (
-    <Flex as="nav" alignItems="center" className={styles["container"]}>
+    <Flex as="nav" alignItems="center" className={styles["container"]} bg="gray.300">
       <Link as={ReachLink} to="/" ml={7}>
         <VStack>
           <Icon as={AiOutlineUnorderedList} w={7} h={7} />
