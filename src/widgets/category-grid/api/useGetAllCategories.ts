@@ -9,7 +9,7 @@ export function useGetAllCategories() {
 
   async function getAllCategories() {
     try {
-      const result = await getProducts();
+      const result = (await getProducts()) as Product[];
 
       const categories: Category[] = result.map((product: Product) => {
         const { id, name, colors } = product;
