@@ -10,7 +10,7 @@ type Props = {
 export function CategoryItem({ id, name, image }: Props): JSX.Element {
   return (
     <Link as={ReachLink} to={`/product/${id}`}>
-      <Card maxW="sm" bg="gray.200">
+      <Card maxW="sm" bg="gray.300">
         <CardBody>
           <Image src={image} alt={name} borderRadius="lg" />
           <Text mt={8} fontSize="2xl">
