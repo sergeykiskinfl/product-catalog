@@ -2,13 +2,18 @@ type Label = "XS" | "S" | "M" | "L" | "XL";
 type SizeNumber = 44 | 46 | 48 | 50 | 52;
 type ColorName = "черный" | "белый" | "серый" | "желтый" | "синий";
 
-type Size = {
+type ProductShort = {
+  id: number;
+  name: string;
+};
+
+export type Size = {
   id: number;
   label: Label;
   number: SizeNumber;
 };
 
-type Color = {
+export type Color = {
   id: number;
   name: ColorName;
   images: string[];
@@ -17,16 +22,18 @@ type Color = {
   sizes: Size[];
 };
 
-type Product = {
-  id: number;
-  name: string;
+export type Category = ProductShort & {
+  image: string;
+};
+
+export type Product = ProductShort & {
   colors: Color[];
 };
 
 export type ZustandState = {
-  products: Product[];
+  categories: Category[];
 };
 
 export type ZustandActions = {
-  setProducts: (products: ZustandState["products"]) => void;
+  setCategories: (categories: ZustandState["categories"]) => void;
 };
