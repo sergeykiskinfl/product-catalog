@@ -1,4 +1,5 @@
-import { Card, CardBody, Image, Text } from "@chakra-ui/react";
+import { Card, CardBody, Image, Text, Link } from "@chakra-ui/react";
+import { Link as ReachLink } from "react-router-dom";
 
 type Props = {
   id: number;
@@ -7,13 +8,16 @@ type Props = {
 };
 
 export function CategoryItem({ id, name, image }: Props): JSX.Element {
-  
   return (
-    <Card maxW="sm" bg="gray.200">
-      <CardBody>        
-        <Image src={image} alt={name} borderRadius="lg" />
-        <Text mt={8} fontSize="2xl">{name}</Text>
-      </CardBody>
-    </Card>
+    <Link as={ReachLink} to={`/product/${id}`}>
+      <Card maxW="sm" bg="gray.200">
+        <CardBody>
+          <Image src={image} alt={name} borderRadius="lg" />
+          <Text mt={8} fontSize="2xl">
+            {name}
+          </Text>
+        </CardBody>
+      </Card>
+    </Link>
   );
 }

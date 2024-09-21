@@ -1,4 +1,5 @@
 import { SimpleGrid } from "@chakra-ui/react";
+
 import useStore from "../../../shared/store";
 import { useGetAllCategories } from "../api/useGetAllCategories";
 import { CategoryItem } from "../../../entities/category-item";
