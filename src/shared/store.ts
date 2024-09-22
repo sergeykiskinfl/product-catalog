@@ -8,6 +8,7 @@ const useStore = create<ZustandState & ZustandActions>()(
   devtools(
     immer((set) => ({
       categories: [],
+      productsInCart: [],
       currentProduct: null,
       sizesLabels: [],
       setCategories: (categories) =>
@@ -16,6 +17,18 @@ const useStore = create<ZustandState & ZustandActions>()(
         set((state) => void (state.currentProduct = currentProduct)),
       setSizesLabels: (sizesLabels) =>
         set((state) => void (state.sizesLabels = sizesLabels)),
+      setProductInCart: (product) =>
+        set((state) => {
+          const productsInCartArr = [...state.productsInCart].map((pr) => {
+            if (pr.id === product.id) {
+              return product;
+            } else {
+              return pr;
+            }
+          });
+
+          return { productsInCart: productsInCartArr };
+        }),
     }))
   )
 );

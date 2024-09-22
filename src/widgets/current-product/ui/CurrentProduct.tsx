@@ -28,14 +28,13 @@ export function CurrentProduct(): JSX.Element {
 
   if (currentProduct && sizesLabels.length > 0) {
     const { name, colors } = currentProduct!;
-   
+
     const selectedColors = colors.map((color) => color.name);
     const selectedPhotos = ["Спереди", "Спина"];
 
-    const currentColor = searchParams.get("color");
-    const currentColorObj = colors.find(
-      (color) => color.name === currentColor
-    ) ?? colors[0];
+    const currentColor = searchParams.get("color") ?? "черный";
+    const currentColorObj =
+      colors.find((color) => color.name === currentColor) ?? colors[0];
     const selectedSizesLabels = currentColorObj["sizes"]
       .map((size) => {
         if (typeof size === "object") {
@@ -52,9 +51,16 @@ export function CurrentProduct(): JSX.Element {
     } else {
       image = currentColorObj["images"][1];
     }
-    
+
+    const currentSizeLabel = searchParams.get("size") ?? "M";
     const price = currentColorObj["price"];
     const description = colors[0]["description"];
+
+    function handleSetProductInCart() {
+      const productInCartObj = {
+        id: [currentProduct?.name, currentColor, currentSizeLabel].join("_"),
+      };
+    }
 
     content = (
       <Card w="1000px" ml={20} bg="gray.300">

@@ -42,10 +42,12 @@ export type ZustandState = {
   sizesLabels: string[];
   categories: Category[];
   currentProduct: Product | null;
+  productsInCart: ProductInCart[];
 };
 
 export type ZustandActions = {
   setCategories: (categories: ZustandState["categories"]) => void;
   setCurrentProduct: (currentProduct: Product) => void;
   setSizesLabels: (sizesLabels: ZustandState["sizesLabels"]) => void;
+  setProductInCart: (product: ProductInCart) => void;
 };
