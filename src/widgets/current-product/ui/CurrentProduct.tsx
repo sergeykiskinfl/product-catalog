@@ -29,8 +29,9 @@ export function CurrentProduct(): JSX.Element {
                 ${price}
               </Text>
               <Text mt={5}>{description}</Text>
-              <ButtonGroupItem header="Размеры" titles={sizes} />
-              <ButtonGroupItem header="Цвета" titles={testColors} />
+              <ButtonGroupItem header="Размеры" titles={sizes} selectedTitles={sizes} />
+              <ButtonGroupItem header="Цвета" titles={testColors} selectedTitles={testColors} />
+              
               <Button mt={10} colorScheme="teal">В корзину</Button>  
             </VStack>
           </HStack>
