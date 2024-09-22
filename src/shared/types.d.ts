@@ -30,6 +30,14 @@ export type Product = ProductShort & {
   colors: Color[];
 };
 
+export type ProductInCart = {
+  id: string;
+  category: string;
+  color: string;
+  size: string;
+  price: string;
+}
+
 export type ZustandState = {
   sizesLabels: string[];
   categories: Category[];

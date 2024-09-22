@@ -1,21 +1,59 @@
-import { Card, CardBody, Image, Text, VStack, HStack, Button } from "@chakra-ui/react";
+import {
+  Card,
+  CardBody,
+  Image,
+  Text,
+  VStack,
+  HStack,
+  Button,
+} from "@chakra-ui/react";
 import useStore from "../../../shared/store";
+
+import { useSearchParams } from "react-router-dom";
+
 import { useGetCurrentProduct } from "../api/useGetCurrentProduct";
+import { useGetAllSizesLabels } from "../api/useGetAllSizesLabels";
+
 import { ButtonGroupItem } from "../../../entities/button-group";
 
 export function CurrentProduct(): JSX.Element {
   let content: JSX.Element = <Text as="p">Loading...</Text>;
 
-  const sizes = ["XS", "S", "M", "L", "XL"];
-  const testColors = ["черный", "белый", "серый", "желтый", "синий"];
+  const [searchParams] = useSearchParams();
 
   useGetCurrentProduct();
+  useGetAllSizesLabels();
   const currentProduct = useStore((state) => state.currentProduct);
+  const sizesLabels = useStore((state) => state.sizesLabels);
 
-  if (currentProduct) {
+  if (currentProduct && sizesLabels.length > 0) {
     const { name, colors } = currentProduct!;
-    const image = colors[0]["images"][0];
-    const price = colors[0]["price"];
+   
+    const selectedColors = colors.map((color) => color.name);
+    const selectedPhotos = ["Спереди", "Спина"];
+
+    const currentColor = searchParams.get("color");
+    const currentColorObj = colors.find(
+      (color) => color.name === currentColor
+    ) ?? colors[0];
+    const selectedSizesLabels = currentColorObj["sizes"]
+      .map((size) => {
+        if (typeof size === "object") {
+          return size.label;
+        }
+      })
+      .filter((item) => item !== undefined);
+
+    const currentPhotoVariant = searchParams.get("photo") ?? "Спереди";
+    let image;
+
+    if (currentPhotoVariant === "Спереди") {
+      image = currentColorObj["images"][0];
+    } else {
+      image = currentColorObj["images"][1];
+    }
+    
+    const price = currentColorObj["price"];
     const description = colors[0]["description"];
 
     content = (
@@ -29,10 +67,28 @@ export function CurrentProduct(): JSX.Element {
                 ${price}
               </Text>
               <Text mt={5}>{description}</Text>
-              <ButtonGroupItem header="Размеры" titles={sizes} selectedTitles={sizes} />
-              <ButtonGroupItem header="Цвета" titles={testColors} selectedTitles={testColors} />
-              
-              <Button mt={10} colorScheme="teal">В корзину</Button>  
+              <ButtonGroupItem
+                kind="color"
+                header="Цвета"
+                titles={selectedColors}
+                selectedTitles={selectedColors}
+              />
+              <ButtonGroupItem
+                kind="size"
+                header="Размеры"
+                titles={sizesLabels}
+                selectedTitles={selectedSizesLabels}
+              />
+              <ButtonGroupItem
+                kind="photo"
+                header="Фото"
+                titles={selectedPhotos}
+                selectedTitles={selectedPhotos}
+              />
+
+              <Button mt={10} colorScheme="teal">
+                В корзину
+              </Button>
             </VStack>
           </HStack>
         </CardBody>
