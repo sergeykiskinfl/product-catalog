@@ -31,6 +31,7 @@ export type Product = ProductShort & {
 };
 
 export type ZustandState = {
+  sizesLabels: string[];
   categories: Category[];
   currentProduct: Product | null;
 };
@@ -38,4 +39,5 @@ export type ZustandState = {
 export type ZustandActions = {
   setCategories: (categories: ZustandState["categories"]) => void;
   setCurrentProduct: (currentProduct: Product) => void;
+  setSizesLabels: (sizesLabels: ZustandState["sizesLabels"]) => void;
 };

@@ -9,10 +9,13 @@ const useStore = create<ZustandState & ZustandActions>()(
     immer((set) => ({
       categories: [],
       currentProduct: null,
+      sizesLabels: [],
       setCategories: (categories) =>
         set((state) => void (state.categories = categories)),
       setCurrentProduct: (currentProduct) =>
         set((state) => void (state.currentProduct = currentProduct)),
+      setSizesLabels: (sizesLabels) =>
+        set((state) => void (state.sizesLabels = sizesLabels)),
     }))
   )
 );
