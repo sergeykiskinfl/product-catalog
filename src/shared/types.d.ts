@@ -1,6 +1,6 @@
-type Label = "XS" | "S" | "M" | "L" | "XL";
-type SizeNumber = 44 | 46 | 48 | 50 | 52;
-type ColorName = "черный" | "белый" | "серый" | "желтый" | "синий";
+// type Label = "XS" | "S" | "M" | "L" | "XL";
+// type SizeNumber = 44 | 46 | 48 | 50 | 52;
+// type ColorName = "черный" | "белый" | "серый" | "желтый" | "синий";
 
 type ProductShort = {
   id: number;
@@ -9,17 +9,17 @@ type ProductShort = {
 
 export type Size = {
   id: number;
-  label: Label;
-  number: SizeNumber;
+  label: string;
+  number: number;
 };
 
 export type Color = {
   id: number;
-  name: ColorName;
+  name: string;
   images: string[];
   price: string;
   description: string;
-  sizes: Size[];
+  sizes: Size[] | number[];
 };
 
 export type Category = ProductShort & {
