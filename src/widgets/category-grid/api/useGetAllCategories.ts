@@ -9,9 +9,9 @@ export function useGetAllCategories() {
 
   async function getAllCategories() {
     try {
-      const result = (await getProducts()) as Product[];
+      const response = (await getProducts()) as Product[];
 
-      const categories: Category[] = result.map((product: Product) => {
+      const categories: Category[] = response.map((product: Product) => {
         const { id, name, colors } = product;
         const image = colors[0].images[0];
 

@@ -13,8 +13,8 @@ export function useGetCurrentProduct() {
 
   async function getCurrentProduct() {
     try {
-      const intermediateResult = (await getProduct(productId)) as Product;
-      const colorsArr = intermediateResult.colors;
+      const response = (await getProduct(productId)) as Product;
+      const colorsArr = response.colors;
       const colorsWithFullDescriptionOfSizes = [];
 
       for (const color of colorsArr) {
@@ -33,12 +33,12 @@ export function useGetCurrentProduct() {
         colorsWithFullDescriptionOfSizes.push(colorWithFullDescription);
       }
 
-      const result = {
-        ...intermediateResult,
+      const currentProductWithFullDescriptionOfSizes = {
+        ...response,
         colors: colorsWithFullDescriptionOfSizes,
       };
 
-      setCurrentProduct(result);
+      setCurrentProduct(currentProductWithFullDescriptionOfSizes);
     } catch (error) {
       if (error instanceof Error) {
         console.log(
