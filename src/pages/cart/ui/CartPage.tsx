@@ -1,4 +1,5 @@
+import { CartGrid } from "../../../widgets/cart-grid/ui/CartGrid";
+
 export function CartPage(): JSX.Element {
-    return <p>Welcome to cart</p>
-  }
-  
+  return <CartGrid />;
+}

@@ -5,6 +5,7 @@ export function handleSetProductInCart(
   currentColor: string,
   currentSizeLabel: string,
   currentPrice: string,
+  currentImage: string,
   productsInCart: ProductInCart[],
   setProductsInCart: (products: ProductInCart[]) => void
 ) {
@@ -14,6 +15,7 @@ export function handleSetProductInCart(
     color: currentColor,
     size: currentSizeLabel,
     price: currentPrice,
+    image: currentImage
   };
 
   const alreadyInCart = [...productsInCart].some(
