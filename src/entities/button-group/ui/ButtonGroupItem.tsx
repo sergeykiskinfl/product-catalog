@@ -3,7 +3,6 @@ import { MouseEvent } from "react";
 
 import { useSearchParams } from "react-router-dom";
 
-
 type Props = {
   kind: string;
   header: string;
@@ -17,7 +16,8 @@ export function ButtonGroupItem({
   titles,
   selectedTitles = [],
 }: Props) {
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentSerchParam = searchParams.get(kind);
 
   function handleClick(e: MouseEvent) {
     const target = e.target as HTMLElement;
@@ -45,7 +45,8 @@ export function ButtonGroupItem({
             <Button
               key={title}
               color="teal"
-              borderColor="black"
+              borderWidth={currentSerchParam === title ? '2px': '0px'}
+              borderColor="teal"
               borderRadius="999"
               isDisabled={!selected}
               data-value={title}
