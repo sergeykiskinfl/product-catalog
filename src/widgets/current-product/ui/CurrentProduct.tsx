@@ -25,10 +25,14 @@ export function CurrentProduct(): JSX.Element {
 
   useGetCurrentProduct();
   useGetAllSizesLabels();
-  const currentProduct = useStore((state) => state.currentProduct);
-  const sizesLabels = useStore((state) => state.sizesLabels);
-  const setProductsInCart = useStore((state) => state.setProductsInCart);
-  const productsInCart = useStore((state) => state.productsInCart);
+
+  const [currentProduct, sizesLabels, setProductsInCart, productsInCart] =
+    useStore((state) => [
+      state.currentProduct,
+      state.sizesLabels,
+      state.setProductsInCart,
+      state.productsInCart,
+    ]);
 
   if (currentProduct && sizesLabels.length > 0) {
     const [
@@ -42,8 +46,6 @@ export function CurrentProduct(): JSX.Element {
       currentColor,
       description,
     ] = getCurrentParams(currentProduct, searchParams);
-
-    console.log("selectedSizesLabels", selectedSizesLabels);
 
     content = (
       <Card w="1000px" ml={20} bg="gray.300">
