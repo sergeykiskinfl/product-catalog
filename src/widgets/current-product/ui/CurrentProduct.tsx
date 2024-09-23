@@ -47,7 +47,7 @@ export function CurrentProduct(): JSX.Element {
     content = (
       <Card w="1000px" ml={20} bg="gray.300">
         <CardBody>
-          <HStack spacing="40px">
+          <HStack spacing="90px">
             <Image src={currentImage} alt={name} borderRadius="lg" maxW="40%" />
             <VStack>
               <Text fontSize="3xl">{name}</Text>
