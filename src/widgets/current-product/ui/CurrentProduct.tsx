@@ -18,6 +18,8 @@ import { handleSetProductInCart } from "../model/handleSetProductInCart";
 
 import { ButtonGroupItem } from "../../../entities/button-group";
 
+// Текущий отображаемый товар
+// Сохранение выбранных харакстеристик товара через URLSearchParams
 export function CurrentProduct(): JSX.Element {
   let content: JSX.Element = <Text as="p">Loading...</Text>;
 

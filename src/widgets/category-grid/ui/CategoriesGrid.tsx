@@ -6,6 +6,7 @@ import { CategoryItem } from "../../../entities/category-item";
 
 import type { Category } from "../../../shared/types";
 
+// Сетка для товаров
 export function CategoriesGrid(): JSX.Element {
   const categories = useStore((state) => state.categories);
   useGetAllCategories();

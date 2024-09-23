@@ -6,6 +6,7 @@ import { CartItem } from "../../../entities/cart-item";
 import type { ProductInCart } from "../../../shared/types";
 import { handleRemoveFromCart } from "../model/handleRemoveFromCart";
 
+// Сетка товаров для корзины
 export function CartGrid(): JSX.Element {
   const productsInCart = useStore((state) => state.productsInCart);
   const setProductsInCart = useStore((state) => state.setProductsInCart);

@@ -5,6 +5,7 @@ import useStore from "../../../shared/store";
 import { getProduct, getSize } from "../../../shared/api";
 import type { Product, Size } from "../../../shared/types";
 
+// Хук для получения данных о выбранном товаре
 export function useGetCurrentProduct() {
   const { pathname } = useLocation();
   const productId = +pathname.split("/")[2];

@@ -4,6 +4,7 @@ import useStore from "../../../shared/store";
 import { getProducts } from "../../../shared/api";
 import type { Product, Category } from "../../../shared/types";
 
+// Хук для получния всех товаров
 export function useGetAllCategories() {
   const setCategories = useStore((state) => state.setCategories);
 

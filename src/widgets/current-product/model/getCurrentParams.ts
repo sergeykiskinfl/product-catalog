@@ -1,5 +1,6 @@
 import type { Size, Product } from "../../../shared/types";
 
+// Сбор текущих параметров товара
 export function getCurrentParams(
   currentProduct: Product,
   searchParams: URLSearchParams

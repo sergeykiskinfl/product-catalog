@@ -1,5 +1,6 @@
 import type { ProductInCart } from "../../../shared/types";
 
+// Помещение товара в корзину
 export function handleSetProductInCart(
   name: string,
   currentColor: string,

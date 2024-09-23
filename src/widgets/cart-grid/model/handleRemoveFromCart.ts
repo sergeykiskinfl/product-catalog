@@ -1,5 +1,6 @@
 import type { ProductInCart } from "../../../shared/types";
 
+// Удаление товара из корзины
 export function handleRemoveFromCart(
   e: any,
   setProductsInCart: (products: ProductInCart[]) => void,

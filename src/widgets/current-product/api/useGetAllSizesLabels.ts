@@ -5,6 +5,7 @@ import { getSizes } from "../../../shared/api";
 
 import type { Size } from "../../../shared/types";
 
+// Хук для сбора информации по доступным размерам
 export function useGetAllSizesLabels() {
   const setSizesLabels = useStore((state) => state.setSizesLabels);
 
