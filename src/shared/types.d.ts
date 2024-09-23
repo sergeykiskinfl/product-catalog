@@ -49,5 +49,5 @@ export type ZustandActions = {
   setCategories: (categories: ZustandState["categories"]) => void;
   setCurrentProduct: (currentProduct: Product) => void;
   setSizesLabels: (sizesLabels: ZustandState["sizesLabels"]) => void;
-  setProductInCart: (product: ProductInCart) => void;
+  setProductsInCart: (products: ProductInCart[]) => void;
 };

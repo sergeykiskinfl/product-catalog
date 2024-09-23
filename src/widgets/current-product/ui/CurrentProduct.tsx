@@ -13,6 +13,8 @@ import { useSearchParams } from "react-router-dom";
 
 import { useGetCurrentProduct } from "../api/useGetCurrentProduct";
 import { useGetAllSizesLabels } from "../api/useGetAllSizesLabels";
+import { getCurrentParams } from "../model/getCurrentParams";
+import { handleSetProductInCart } from "../model/handleSetProductInCart";
 
 import { ButtonGroupItem } from "../../../entities/button-group";
 
@@ -25,52 +27,33 @@ export function CurrentProduct(): JSX.Element {
   useGetAllSizesLabels();
   const currentProduct = useStore((state) => state.currentProduct);
   const sizesLabels = useStore((state) => state.sizesLabels);
+  const setProductsInCart = useStore((state) => state.setProductsInCart);
+  const productsInCart = useStore((state) => state.productsInCart);
 
   if (currentProduct && sizesLabels.length > 0) {
-    const { name, colors } = currentProduct!;
+    const [
+      name,
+      selectedColors,
+      selectedPhotos,
+      selectedSizesLabels,
+      currentImage,
+      currentSizeLabel,
+      currentPrice,
+      currentColor,
+      description,
+    ] = getCurrentParams(currentProduct, searchParams);
 
-    const selectedColors = colors.map((color) => color.name);
-    const selectedPhotos = ["Спереди", "Спина"];
-
-    const currentColor = searchParams.get("color") ?? "черный";
-    const currentColorObj =
-      colors.find((color) => color.name === currentColor) ?? colors[0];
-    const selectedSizesLabels = currentColorObj["sizes"]
-      .map((size) => {
-        if (typeof size === "object") {
-          return size.label;
-        }
-      })
-      .filter((item) => item !== undefined);
-
-    const currentPhotoVariant = searchParams.get("photo") ?? "Спереди";
-    let image;
-
-    if (currentPhotoVariant === "Спереди") {
-      image = currentColorObj["images"][0];
-    } else {
-      image = currentColorObj["images"][1];
-    }
-
-    const currentSizeLabel = searchParams.get("size") ?? "M";
-    const price = currentColorObj["price"];
-    const description = colors[0]["description"];
-
-    function handleSetProductInCart() {
-      const productInCartObj = {
-        id: [currentProduct?.name, currentColor, currentSizeLabel].join("_"),
-      };
-    }
+    console.log("selectedSizesLabels", selectedSizesLabels);
 
     content = (
       <Card w="1000px" ml={20} bg="gray.300">
         <CardBody>
           <HStack spacing="40px">
-            <Image src={image} alt={name} borderRadius="lg" maxW="40%" />
+            <Image src={currentImage} alt={name} borderRadius="lg" maxW="40%" />
             <VStack>
               <Text fontSize="3xl">{name}</Text>
               <Text borderRadius="999" bg="teal.500" color="white" p={3}>
-                ${price}
+                ${currentPrice}
               </Text>
               <Text mt={5}>{description}</Text>
               <ButtonGroupItem
@@ -92,7 +75,21 @@ export function CurrentProduct(): JSX.Element {
                 selectedTitles={selectedPhotos}
               />
 
-              <Button mt={10} colorScheme="teal">
+              <Button
+                mt={10}
+                colorScheme="teal"
+                isDisabled={!currentSizeLabel}
+                onClick={() =>
+                  handleSetProductInCart(
+                    name,
+                    currentColor,
+                    currentSizeLabel,
+                    currentPrice,
+                    productsInCart,
+                    setProductsInCart
+                  )
+                }
+              >
                 В корзину
               </Button>
             </VStack>
