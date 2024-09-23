@@ -84,6 +84,7 @@ export function CurrentProduct(): JSX.Element {
                     currentColor,
                     currentSizeLabel,
                     currentPrice,
+                    currentImage,
                     productsInCart,
                     setProductsInCart
                   )

@@ -32,6 +32,7 @@ export type Product = ProductShort & {
 
 export type ProductInCart = {
   id: string;
+  image: string;
   category: string;
   color: string;
   size: string;
