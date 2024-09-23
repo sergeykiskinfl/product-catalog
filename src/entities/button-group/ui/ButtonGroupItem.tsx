@@ -1,7 +1,7 @@
 import { ButtonGroup, Button, Text, Box } from "@chakra-ui/react";
-import { MouseEvent } from "react";
 
 import { useSearchParams } from "react-router-dom";
+import { handleBtnGroupClick } from "../model/handelBtnGroupClick";
 
 type Props = {
   kind: string;
@@ -15,29 +15,17 @@ export function ButtonGroupItem({
   header,
   titles,
   selectedTitles = [],
-}: Props) {
+}: Props): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentSerchParam = searchParams.get(kind);
-
-  function handleClick(e: MouseEvent) {
-    const target = e.target as HTMLElement;
-    const taskBtn = target.closest("button");
-
-    if (!taskBtn || !taskBtn.dataset?.value) return;
-
-    e.preventDefault();
-    const value = taskBtn.dataset?.value;
-
-    setSearchParams((searchParams) => {
-      searchParams.set(kind, value);
-      return searchParams;
-    });
-  }
+  const currentSearchParam = searchParams.get(kind);
 
   return (
     <Box mt={10}>
       <Text>{header.toUpperCase()}</Text>
-      <ButtonGroup mt={3} onClick={(e) => handleClick(e)}>
+      <ButtonGroup
+        mt={3}
+        onClick={(e) => handleBtnGroupClick(e, setSearchParams, kind)}
+      >
         {titles.map((title) => {
           const selected = selectedTitles.includes(title);
 
@@ -45,7 +33,7 @@ export function ButtonGroupItem({
             <Button
               key={title}
               color="teal"
-              borderWidth={currentSerchParam === title ? '2px': '0px'}
+              borderWidth={currentSearchParam === title ? "2px" : "0px"}
               borderColor="teal"
               borderRadius="999"
               isDisabled={!selected}
