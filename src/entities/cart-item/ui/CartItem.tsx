@@ -27,7 +27,7 @@ export function CartItem({
             <Text fontSize="3xl">{category}</Text>
             <Text fontSize="2xl">Цвет: {color}</Text>
             <Text fontSize="2xl">Размер: {size}</Text>
-            <Text fontSize="2xl">Цена: {price}</Text>
+            <Text fontSize="2xl">Цена: ${price}</Text>
             <Button colorScheme="red" data-id={id}>
               Удалить
             </Button>

@@ -14,8 +14,9 @@ export function CartGrid(): JSX.Element {
   return (
     <SimpleGrid
       ml={14}
-      columns={3}
+      columns={2}
       spacing={3}
+      minW='1000px'
       onClick={(e) =>
         handleRemoveFromCart(e, setProductsInCart, productsInCart)
       }
