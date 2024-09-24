@@ -2,6 +2,7 @@ import { ButtonGroup, Button, Text, Box } from "@chakra-ui/react";
 
 import { useSearchParams } from "react-router-dom";
 import { handleBtnGroupClick } from "../model/handelBtnGroupClick";
+import { memo } from "react";
 
 type Props = {
   kind: string;
@@ -47,3 +48,5 @@ export function ButtonGroupItem({
     </Box>
   );
 }
+
+export const MemoButtonGroupItem = memo<Props>(ButtonGroupItem)
