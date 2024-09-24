@@ -1,3 +1,3 @@
 # Product catalog
-## React, Typescript, Chakra, Vite, Zustand
+## React, Typescript, Chakra, Vite, Zustand, FSD
 
