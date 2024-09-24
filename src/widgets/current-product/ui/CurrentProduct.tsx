@@ -13,10 +13,12 @@ import { useSearchParams } from "react-router-dom";
 
 import { useGetCurrentProduct } from "../api/useGetCurrentProduct";
 import { useGetAllSizesLabels } from "../api/useGetAllSizesLabels";
+import { useGetDefaultSizeForColor } from "../model/useGetDefaultSizeForColor";
+
 import { getCurrentParams } from "../model/getCurrentParams";
 import { handleSetProductInCart } from "../model/handleSetProductInCart";
 
-import { ButtonGroupItem } from "../../../entities/button-group";
+import { MemoButtonGroupItem as ButtonGroupItem } from "../../../entities/button-group";
 
 // Текущий отображаемый товар
 // Сохранение выбранных харакстеристик товара через URLSearchParams
@@ -24,15 +26,15 @@ export function CurrentProduct(): JSX.Element {
   let content: JSX.Element = <Text as="p">Loading...</Text>;
 
   const [searchParams] = useSearchParams();
-
-  useGetCurrentProduct();
-  useGetAllSizesLabels();
-  
   const currentProduct = useStore((state) => state.currentProduct);
   const sizesLabels = useStore((state) => state.sizesLabels);
   const setProductsInCart = useStore((state) => state.setProductsInCart);
   const productsInCart = useStore((state) => state.productsInCart);
- 
+
+  useGetCurrentProduct();
+  useGetAllSizesLabels();
+  useGetDefaultSizeForColor();
+
   if (currentProduct && sizesLabels.length > 0) {
     const [
       name,
@@ -45,7 +47,7 @@ export function CurrentProduct(): JSX.Element {
       currentColor,
       description,
     ] = getCurrentParams(currentProduct, searchParams);
- 
+
     content = (
       <Card w="1000px" ml={20} bg="gray.300">
         <CardBody>

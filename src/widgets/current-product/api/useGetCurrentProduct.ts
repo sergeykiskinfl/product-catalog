@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import useStore from "../../../shared/store";
+import { useSearchParams } from "react-router-dom";
 
 import { getProduct, getSize } from "../../../shared/api";
 import type { Product, Size } from "../../../shared/types";
@@ -11,11 +12,12 @@ export function useGetCurrentProduct() {
   const productId = +pathname.split("/")[2];
 
   const setCurrentProduct = useStore((state) => state.setCurrentProduct);
+  const [, setSearchParams] = useSearchParams();
 
   async function getCurrentProduct() {
     try {
       const response = (await getProduct(productId)) as Product;
-      const colorsArr = response.colors;
+      const colorsArr = response!.colors;
       const colorsWithFullDescriptionOfSizes = [];
 
       for (const color of colorsArr) {
@@ -40,6 +42,21 @@ export function useGetCurrentProduct() {
       };
 
       setCurrentProduct(currentProductWithFullDescriptionOfSizes);
+
+      // Установка дефолтных значений для цвета и размера
+      setSearchParams((searchParams: URLSearchParams) => {
+        searchParams.set(
+          "color",
+          currentProductWithFullDescriptionOfSizes["colors"][0]["name"]
+        );
+        searchParams.set(
+          "size",
+          currentProductWithFullDescriptionOfSizes["colors"][0]["sizes"][0][
+            "label"
+          ]
+        );
+        return searchParams;
+      });
     } catch (error) {
       if (error instanceof Error) {
         console.log(
@@ -52,5 +69,8 @@ export function useGetCurrentProduct() {
 
   useEffect(() => {
     getCurrentProduct();
+    return () => {
+      setCurrentProduct(null);
+    };
   }, []);
 }

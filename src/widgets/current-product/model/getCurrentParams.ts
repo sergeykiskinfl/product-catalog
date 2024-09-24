@@ -36,10 +36,11 @@ export function getCurrentParams(
   const wantedSizeLabel = currentSizeArr.find(
     (sizeObj) => sizeObj["label"] === currentSizeLabelUrlParam
   )?.label;
-
+  
   const defaultSizeObj = currentColorObj["sizes"][0] as Size;
 
   const currentSizeLabel = wantedSizeLabel ?? defaultSizeObj?.["label"];
+  
   const currentPrice = currentColorObj["price"];
   const description = currentColorObj["description"];
 
