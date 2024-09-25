@@ -12,7 +12,7 @@ export function useGetCurrentProduct() {
   const productId = +pathname.split("/")[2];
 
   const setCurrentProduct = useStore((state) => state.setCurrentProduct);
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   async function getCurrentProduct() {
     try {
@@ -43,18 +43,19 @@ export function useGetCurrentProduct() {
 
       setCurrentProduct(currentProductWithFullDescriptionOfSizes);
 
+      const defaultColor =
+        searchParams.get("color") ??
+        currentProductWithFullDescriptionOfSizes["colors"][0]["name"];
+      const defaultSize =
+        searchParams.get("size") ??
+        currentProductWithFullDescriptionOfSizes["colors"][0]["sizes"][0][
+          "label"
+        ];
+
       // Установка дефолтных значений для цвета и размера
       setSearchParams((searchParams: URLSearchParams) => {
-        searchParams.set(
-          "color",
-          currentProductWithFullDescriptionOfSizes["colors"][0]["name"]
-        );
-        searchParams.set(
-          "size",
-          currentProductWithFullDescriptionOfSizes["colors"][0]["sizes"][0][
-            "label"
-          ]
-        );
+        searchParams.set("color", defaultColor);
+        searchParams.set("size", defaultSize);
         return searchParams;
       });
     } catch (error) {
