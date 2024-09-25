@@ -18,4 +18,6 @@ export function handleRemoveFromCart(
   );
 
   setProductsInCart(filteredProucts);
+  localStorage.setItem("cart", JSON.stringify(filteredProucts));
+
 }

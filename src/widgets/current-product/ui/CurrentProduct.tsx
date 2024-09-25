@@ -16,9 +16,10 @@ import { useGetAllSizesLabels } from "../api/useGetAllSizesLabels";
 import { useGetDefaultSizeForColor } from "../model/useGetDefaultSizeForColor";
 
 import { getCurrentParams } from "../model/getCurrentParams";
-import { handleSetProductInCart } from "../model/handleSetProductInCart";
 
 import { MemoButtonGroupItem as ButtonGroupItem } from "../../../entities/button-group";
+
+import type { ProductInCart } from "../../../shared/types";
 
 // Текущий отображаемый товар
 // Сохранение выбранных харакстеристик товара через URLSearchParams
@@ -47,6 +48,29 @@ export function CurrentProduct(): JSX.Element {
       currentColor,
       description,
     ] = getCurrentParams(currentProduct, searchParams);
+
+    function handleSetProductInCart() {
+      const productInCartObj: ProductInCart = {
+        id: [name, currentColor, currentSizeLabel].join("_"),
+        category: name,
+        color: currentColor,
+        size: currentSizeLabel,
+        price: currentPrice,
+        image: currentImage,
+      };
+
+      const alreadyInCart = [...productsInCart].some(
+        (product) => product.id === productInCartObj.id
+      );
+
+      if (!alreadyInCart) {
+        const bufferArr = [...productsInCart];
+
+        bufferArr.push(productInCartObj);
+        setProductsInCart(bufferArr);
+        localStorage.setItem("cart", JSON.stringify(bufferArr));
+      }
+    }
 
     content = (
       <Card w="1000px" ml={20} bg="gray.300">
@@ -82,17 +106,7 @@ export function CurrentProduct(): JSX.Element {
                 mt={10}
                 colorScheme="teal"
                 isDisabled={!currentSizeLabel}
-                onClick={() =>
-                  handleSetProductInCart(
-                    name,
-                    currentColor,
-                    currentSizeLabel,
-                    currentPrice,
-                    currentImage,
-                    productsInCart,
-                    setProductsInCart
-                  )
-                }
+                onClick={handleSetProductInCart}
               >
                 В корзину
               </Button>
