@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import useStore from "../../../shared/store";
 import { useSearchParams } from "react-router-dom";
@@ -13,6 +13,7 @@ export function useGetCurrentProduct() {
 
   const setCurrentProduct = useStore((state) => state.setCurrentProduct);
   const [searchParams, setSearchParams] = useSearchParams();
+  const savedSizedRefArr = useRef<Size[]>([]);
 
   async function getCurrentProduct() {
     try {
@@ -21,15 +22,45 @@ export function useGetCurrentProduct() {
       const colorsWithFullDescriptionOfSizes = [];
 
       for (const color of colorsArr) {
-        const sizesIdArr = color.sizes;
+        const sizesIdArr = color.sizes as number[];
+        const savedSizesIdArr: number[] = [];
+        const extraSizesIdArr: number[] = [];
 
-        const sizesPromises = sizesIdArr.map((id) => {
-          if (typeof id === "number") {
-            return getSize(id);
+        sizesIdArr.forEach((id) => {
+          if (
+            !savedSizedRefArr.current.some((savedSize) => savedSize.id === id)
+          ) {
+            extraSizesIdArr.push(id);
+          } else {
+            savedSizesIdArr.push(id);
           }
         });
 
-        const sizesObjArr = (await Promise.all(sizesPromises)) as Size[];
+        const sizesPromises = extraSizesIdArr.map((id) => {
+          return getSize(id);
+        });
+
+        const extraSizesObjArr = (await Promise.all(sizesPromises)) as Size[];
+
+        extraSizesObjArr.forEach((sizeObj) => {
+          const { id } = sizeObj;
+
+          if (
+            !savedSizedRefArr.current.some((savedSize) => savedSize.id === id)
+          ) {
+            savedSizedRefArr.current.push(sizeObj);
+          }
+        });
+
+        const savedSizesObjArr = savedSizesIdArr.map((id) =>
+          savedSizedRefArr.current.find(
+            (savedSizeObj) => savedSizeObj.id === id
+          )
+        );
+
+        const sizesObjArr = [...savedSizesObjArr, ...extraSizesObjArr].sort(
+          (a, b) => a!.id - b!.id
+        ) as Size[];
 
         const colorWithFullDescription = { ...color, sizes: sizesObjArr };
 
